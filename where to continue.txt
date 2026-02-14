@@ -1,0 +1,4 @@
+- solve the time & date slot using cron-> Done
+- Solve the transction problem issue -> done replica
+- bookingNumber issue in controller -> done
+- Password upadte issue
