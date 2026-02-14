@@ -9,7 +9,6 @@ const initialState = {
   message: '',
 };
 
-// Get all centers
 export const getCenters = createAsyncThunk(
   'center/getAll',
   async (_, thunkAPI) => {
@@ -23,7 +22,6 @@ export const getCenters = createAsyncThunk(
   }
 );
 
-// Get single center
 export const getCenter = createAsyncThunk(
   'center/getOne',
   async (id, thunkAPI) => {
@@ -65,7 +63,6 @@ export const centerSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      // Get center
       .addCase(getCenter.fulfilled, (state, action) => {
         state.selectedCenter = action.payload.data;
       });

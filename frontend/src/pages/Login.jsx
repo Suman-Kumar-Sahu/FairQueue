@@ -44,7 +44,6 @@ const Login = () => {
     return () => dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  /* ------------------ Handlers ------------------ */
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -76,7 +75,6 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-primary-50 via-white to-success-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl mb-4 shadow-soft-lg">
             <span className="text-white font-bold text-3xl">Q</span>
@@ -91,7 +89,6 @@ const Login = () => {
 
         <Card>
           <form onSubmit={onSubmit} className="space-y-5">
-            {/* Email */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Email Address
@@ -115,7 +112,6 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Password
@@ -146,7 +142,6 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Remember + Forgot */}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -167,7 +162,6 @@ const Login = () => {
               </Link>
             </div>
 
-            {/* Submit */}
             <Button
               type="submit"
               variant="primary"
@@ -181,7 +175,6 @@ const Login = () => {
             </Button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-neutral-200"></div>
@@ -200,7 +193,6 @@ const Login = () => {
           </Link>
         </Card>
 
-        {/* Demo Box */}
         <div className="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-200">
           <div className="flex items-start gap-2">
             <AlertCircle size={18} className="text-blue-600 mt-0.5" />

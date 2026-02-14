@@ -66,7 +66,6 @@ const TimeSlotSelector = ({
                   }
                 `}
               >
-                {/* Time */}
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Clock size={18} className={isSelected ? 'text-primary-600' : 'text-neutral-600'} />
                   <p className={`font-bold ${isSelected ? 'text-primary-600' : 'text-neutral-800'}`}>
@@ -74,7 +73,6 @@ const TimeSlotSelector = ({
                   </p>
                 </div>
 
-                {/* Load Indicator */}
                 <div className="flex items-center justify-center gap-1 text-xs mb-2">
                   <Users size={14} className="text-neutral-500" />
                   <span className="text-neutral-600">
@@ -82,7 +80,6 @@ const TimeSlotSelector = ({
                   </span>
                 </div>
 
-                {/* Status Badge */}
                 {isFull ? (
                   <Badge variant="danger" size="sm">Full</Badge>
                 ) : (
@@ -94,7 +91,6 @@ const TimeSlotSelector = ({
                   </div>
                 )}
 
-                {/* Wait Time */}
                 {slot.estimatedWait && (
                   <p className="text-xs text-neutral-500 mt-1">
                     ~{slot.estimatedWait.average}min wait

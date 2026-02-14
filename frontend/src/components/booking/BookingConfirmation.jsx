@@ -12,7 +12,6 @@ const BookingConfirmation = ({ booking, onDone }) => {
       animate={{ opacity: 1, scale: 1 }}
       className="max-w-md mx-auto"
     >
-      {/* Success Animation */}
       <div className="text-center mb-6">
         <motion.div
           initial={{ scale: 0 }}
@@ -42,10 +41,8 @@ const BookingConfirmation = ({ booking, onDone }) => {
         </motion.div>
       </div>
 
-      {/* Booking Details Card */}
       <Card>
         <div className="space-y-4">
-          {/* Booking Number */}
           <div className="text-center p-4 bg-primary-50 rounded-2xl border-2 border-primary-200">
             <p className="text-sm text-primary-600 font-medium mb-1">Booking Number</p>
             <p className="text-2xl font-bold text-primary-700 font-mono">
@@ -53,7 +50,6 @@ const BookingConfirmation = ({ booking, onDone }) => {
             </p>
           </div>
 
-          {/* Details */}
           <div className="space-y-3">
             <div className="flex items-start gap-3">
               <FileText className="text-neutral-500 mt-1" size={20} />
@@ -92,7 +88,6 @@ const BookingConfirmation = ({ booking, onDone }) => {
             </div>
           </div>
 
-          {/* Important Note */}
           <div className="p-4 bg-yellow-50 rounded-2xl border border-yellow-200">
             <p className="text-sm text-yellow-800">
               <span className="font-semibold">⚠️ Important:</span> Please arrive 10 minutes before your scheduled time. 
@@ -102,7 +97,6 @@ const BookingConfirmation = ({ booking, onDone }) => {
         </div>
       </Card>
 
-      {/* Action Buttons */}
       <div className="mt-6 space-y-3">
         <Button
           variant="primary"

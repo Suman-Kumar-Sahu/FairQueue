@@ -32,11 +32,9 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
     });
   };
 
-  // Function to fetch coordinates from backend API
   const fetchCoordinates = async () => {
     const { street, city, state, pincode } = formData;
 
-    // Check if we have enough address data
     if (!city && !pincode) {
       toast.error('Please enter at least city or pincode');
       return;
@@ -45,7 +43,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
     setFetchingCoordinates(true);
 
     try {
-      // Call your backend geocoding endpoint
       const params = new URLSearchParams();
       if (street) params.append('street', street);
       if (city) params.append('city', city);
@@ -71,13 +68,12 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
     }
   };
 
-  // Auto-fetch coordinates when address fields change (with debounce)
   useEffect(() => {
     const timer = setTimeout(() => {
       if (formData.city || formData.pincode) {
         fetchCoordinates();
       }
-    }, 1500); // Wait 1.5 seconds after user stops typing
+    }, 1500); 
 
     return () => clearTimeout(timer);
   }, [formData.street, formData.city, formData.state, formData.pincode]);
@@ -139,7 +135,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {/* Basic Info */}
           <div>
             <label className="block text-sm font-semibold text-neutral-700 mb-2">
               Center Name *
@@ -175,7 +170,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
             </select>
           </div>
 
-          {/* Address */}
           <div className="space-y-4 pt-4 border-t border-neutral-200">
             <h3 className="font-semibold text-neutral-800">Address</h3>
             
@@ -242,7 +236,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
               />
             </div>
 
-            {/* Location Coordinates */}
             <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
@@ -322,7 +315,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
             </div>
           </div>
 
-          {/* Working Hours */}
           <div className="space-y-4 pt-4 border-t border-neutral-200">
             <h3 className="font-semibold text-neutral-800">Working Hours</h3>
             
@@ -357,7 +349,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
             </div>
           </div>
 
-          {/* Capacity Configuration */}
           <div className="space-y-4 pt-4 border-t border-neutral-200">
             <h3 className="font-semibold text-neutral-800">Capacity Configuration</h3>
             
@@ -412,7 +403,6 @@ const CreateCenterModal = ({ onClose, onSuccess }) => {
             </div>
           </div>
 
-          {/* Submit Buttons */}
           <div className="flex gap-3 pt-4">
             <Button
               type="button"

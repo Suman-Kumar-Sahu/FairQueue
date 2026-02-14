@@ -21,7 +21,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import CenterManagement from './pages/admin/CenterManagement';
 import Analytics from './pages/admin/Analytics';
 
-/* -------------------- Protected Route -------------------- */
+// Protected Route
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { user } = useSelector((state) => state.auth);
 
@@ -36,7 +36,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
   return children;
 };
 
-/* -------------------- Public Route -------------------- */
+// Public Route 
 const PublicRoute = ({ children }) => {
   const { user } = useSelector((state) => state.auth);
 
@@ -52,7 +52,7 @@ const PublicRoute = ({ children }) => {
   return children;
 };
 
-/* -------------------- Role Based Index Redirect -------------------- */
+// Role Based
 const RoleBasedRedirect = () => {
   const { user } = useSelector((state) => state.auth);
 
@@ -70,8 +70,7 @@ function App() {
     <>
       <Router>
         <Routes>
-
-          {/* -------- Public Routes -------- */}
+          // Public Routes
           <Route
             path="/login"
             element={
@@ -89,12 +88,11 @@ function App() {
             }
           />
 
-          {/* -------- Protected Routes -------- */}
+          // Protected Routes 
           <Route path="/" element={<ProtectedRoute> <Layout /> </ProtectedRoute>}>
 
             <Route index element={<RoleBasedRedirect />} />
 
-            {/* User Routes */}
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="book" element={<ServiceSelection />} />
             <Route path="centers" element={<Centers />} />
@@ -103,7 +101,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="edit-profile" element={<EditProfile />} />
 
-            {/* Admin Routes */}
+            // Admin Routes 
             <Route
               path="admin/dashboard"
               element={

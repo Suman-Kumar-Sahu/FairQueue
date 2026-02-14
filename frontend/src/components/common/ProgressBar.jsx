@@ -11,7 +11,6 @@ const ProgressBar = ({
 }) => {
   const percentage = Math.min((value / max) * 100, 100);
   
-  // Color changes from red to green based on progress
   const getColor = () => {
     if (colorScheme === 'gradient') {
       if (percentage < 33) return 'bg-gradient-to-r from-red-500 to-orange-500';

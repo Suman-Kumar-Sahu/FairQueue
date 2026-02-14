@@ -38,7 +38,6 @@ const UpcomingAppointments = ({ bookings = [] }) => {
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              {/* Service and Status */}
               <div className="flex items-center gap-2 mb-2">
                 <h4 className="font-bold text-neutral-800">{booking.service}</h4>
                 <Badge variant={
@@ -49,13 +48,11 @@ const UpcomingAppointments = ({ bookings = [] }) => {
                 </Badge>
               </div>
 
-              {/* Center Name */}
               <div className="flex items-center gap-2 text-neutral-600 mb-2">
                 <MapPin size={16} />
                 <span className="text-sm">{booking.center?.name}</span>
               </div>
 
-              {/* Date and Time */}
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-2 text-neutral-600">
                   <Calendar size={16} />
@@ -67,13 +64,11 @@ const UpcomingAppointments = ({ bookings = [] }) => {
                 </div>
               </div>
 
-              {/* Booking Number */}
               <p className="text-xs text-neutral-500 mt-2 font-mono">
                 #{booking.bookingNumber}
               </p>
             </div>
 
-            {/* Arrow Icon */}
             <ArrowRight size={20} className="text-neutral-400 mt-2" />
           </div>
         </Card>

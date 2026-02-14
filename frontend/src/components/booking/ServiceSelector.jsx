@@ -47,7 +47,6 @@ const ServiceSelector = ({ services = [], selectedService, onSelect }) => {
                     <Icon className="text-white" size={32} />
                   </div>
 
-                  {/* Service Name */}
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-neutral-800">
                       {service.name}
@@ -59,7 +58,6 @@ const ServiceSelector = ({ services = [], selectedService, onSelect }) => {
                     )}
                   </div>
 
-                  {/* Checkmark if selected */}
                   {isSelected && (
                     <motion.div
                       initial={{ scale: 0 }}

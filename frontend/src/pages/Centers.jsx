@@ -16,13 +16,12 @@ const Centers = () => {
   const { centers, isLoading } = useSelector((state) => state.center);
   
   const [searchTerm, setSearchTerm] = useState('');
-  const serviceFromUrl = searchParams.get('service'); // Get service from URL
+  const serviceFromUrl = searchParams.get('service'); 
 
   useEffect(() => {
     dispatch(getCenters());
   }, [dispatch]);
 
-  // Get service name for display
   const getServiceName = (serviceId) => {
     const serviceNames = {
       'aadhaar': 'Aadhaar Services',
@@ -35,18 +34,14 @@ const Centers = () => {
     return serviceNames[serviceId] || serviceId;
   };
 
-  // Filter centers based on service type and search
   const filteredCenters = centers.filter((center) => {
-    // Only show active centers
     if (!center.isActive) return false;
-
-    // Filter by service type if specified in URL
+L
     if (serviceFromUrl) {
       const hasService = center.type === serviceFromUrl;
       if (!hasService) return false;
     }
 
-    // Filter by search term
     const matchesSearch = 
       center.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       center.address?.city?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -73,7 +68,6 @@ const Centers = () => {
 
   return (
     <div className="space-y-6">
-      {/* Progress Indicator */}
       {serviceFromUrl && (
         <div className="flex items-center justify-center gap-2 text-sm bg-white rounded-xl p-4 shadow-sm">
           <div className="flex items-center gap-2">
@@ -99,7 +93,6 @@ const Centers = () => {
         </div>
       )}
 
-      {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-2">
           {serviceFromUrl && (
@@ -123,7 +116,6 @@ const Centers = () => {
           </div>
         </div>
 
-        {/* Service Badge */}
         {serviceFromUrl && (
           <div className="flex items-center gap-2 mt-3">
             <span className="text-sm text-neutral-600">Selected Service:</span>
@@ -140,7 +132,6 @@ const Centers = () => {
         )}
       </div>
 
-      {/* Search */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
@@ -154,7 +145,6 @@ const Centers = () => {
         </div>
       </div>
 
-      {/* Results Count */}
       <div className="text-sm text-neutral-600">
         {filteredCenters.length === 0 ? (
           <span className="text-orange-600 font-medium">No centers found</span>
@@ -165,7 +155,6 @@ const Centers = () => {
         )}
       </div>
 
-      {/* Centers Grid or Empty State */}
       {filteredCenters.length === 0 ? (
         <Card className="text-center py-12">
           <AlertCircle size={48} className="mx-auto text-orange-400 mb-4" />
@@ -205,7 +194,6 @@ const Centers = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {filteredCenters.map((center) => (
             <Card key={center._id} hover className="flex flex-col">
-              {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
@@ -221,9 +209,7 @@ const Centers = () => {
                 <Building2 size={32} className="text-blue-500 opacity-20" />
               </div>
 
-              {/* Details */}
               <div className="space-y-3 flex-1">
-                {/* Address */}
                 <div className="flex items-start gap-2 text-sm">
                   <MapPin size={16} className="text-neutral-500 mt-1 flex-shrink-0" />
                   <div className="text-neutral-700">
@@ -232,7 +218,6 @@ const Centers = () => {
                   </div>
                 </div>
 
-                {/* Working Hours */}
                 <div className="flex items-center gap-2 text-sm text-neutral-700">
                   <Clock size={16} className="text-neutral-500 flex-shrink-0" />
                   <span>
@@ -240,7 +225,6 @@ const Centers = () => {
                   </span>
                 </div>
 
-                {/* Counters */}
                 <div className="flex items-center gap-2 text-sm text-neutral-700">
                   <Users size={16} className="text-neutral-500 flex-shrink-0" />
                   <span>
@@ -248,7 +232,6 @@ const Centers = () => {
                   </span>
                 </div>
 
-                {/* Services */}
                 {center.services && center.services.length > 0 && (
                   <div className="pt-3 border-t border-neutral-200">
                     <p className="text-xs text-neutral-600 mb-2 font-medium">Available Services:</p>
@@ -268,7 +251,6 @@ const Centers = () => {
                 )}
               </div>
 
-              {/* Action Button */}
               <div className="mt-4 pt-4 border-t border-neutral-200">
                 <Button
                   variant="primary"

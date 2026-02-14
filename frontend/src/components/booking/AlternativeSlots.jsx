@@ -14,7 +14,6 @@ const AlternativeSlots = ({ alternatives = [], onSelect, onClose }) => {
       className="mt-6"
     >
       <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-200">
-        {/* Header */}
         <div className="flex items-start gap-3 mb-4">
           <div className="p-2 bg-yellow-400 rounded-xl">
             <Lightbulb className="text-white" size={24} />
@@ -29,7 +28,6 @@ const AlternativeSlots = ({ alternatives = [], onSelect, onClose }) => {
           </div>
         </div>
 
-        {/* Alternative Slots */}
         <div className="space-y-3">
           {alternatives.map((alt, index) => (
             <motion.div
@@ -44,7 +42,6 @@ const AlternativeSlots = ({ alternatives = [], onSelect, onClose }) => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    {/* Time */}
                     <div className="flex items-center gap-2 mb-2">
                       <Clock size={18} className="text-success-600" />
                       <p className="font-bold text-neutral-800 text-lg">
@@ -59,7 +56,6 @@ const AlternativeSlots = ({ alternatives = [], onSelect, onClose }) => {
                       )}
                     </div>
 
-                    {/* Benefits */}
                     <div className="flex items-center gap-4 text-sm">
                       <div className="flex items-center gap-1 text-success-600">
                         <TrendingDown size={16} />
@@ -72,7 +68,6 @@ const AlternativeSlots = ({ alternatives = [], onSelect, onClose }) => {
                       </div>
                     </div>
 
-                    {/* Recommendation */}
                     {alt.recommendation && (
                       <p className="text-xs font-semibold text-success-600 mt-2">
                         ✨ {alt.recommendation}
@@ -87,7 +82,6 @@ const AlternativeSlots = ({ alternatives = [], onSelect, onClose }) => {
           ))}
         </div>
 
-        {/* Close Button */}
         <Button
           variant="secondary"
           size="sm"

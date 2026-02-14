@@ -8,7 +8,6 @@ const ServiceSelection = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState('');
 
-  // Available services with icons and descriptions
   const services = [
     {
       id: 'aadhaar',
@@ -98,7 +97,6 @@ const ServiceSelection = () => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-neutral-800 mb-2">
           Book an Appointment
@@ -108,7 +106,6 @@ const ServiceSelection = () => {
         </p>
       </div>
 
-      {/* Progress Indicator */}
       <div className="flex items-center justify-center gap-2 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold">
@@ -132,7 +129,6 @@ const ServiceSelection = () => {
         </div>
       </div>
 
-      {/* Service Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {services.map((service) => {
           const isSelected = selectedService === service.id;
@@ -167,7 +163,6 @@ const ServiceSelection = () => {
         })}
       </div>
 
-      {/* Continue Button */}
       <div className="flex justify-center pt-4">
         <Button
           variant="primary"
@@ -181,7 +176,6 @@ const ServiceSelection = () => {
         </Button>
       </div>
 
-      {/* Help Text */}
       <div className="text-center text-sm text-neutral-500 pt-4">
         Not sure which service you need?{' '}
         <button className="text-blue-600 hover:underline">

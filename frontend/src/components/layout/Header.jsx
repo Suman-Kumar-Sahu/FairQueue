@@ -19,7 +19,6 @@ const Header = ({ onMenuClick }) => {
     <header className="bg-white border-b border-neutral-200 shadow-sm sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo and Menu */}
           <div className="flex items-center gap-4">
             <button
               onClick={onMenuClick}
@@ -37,15 +36,12 @@ const Header = ({ onMenuClick }) => {
             </div>
           </div>
 
-          {/* User Info and Actions */}
           <div className="flex items-center gap-4">
-            {/* Notifications */}
             <button className="relative p-2 rounded-lg hover:bg-neutral-100">
               <Bell size={24} className="text-neutral-600" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* User Menu */}
             <div className="hidden md:flex items-center gap-3">
               <div className="text-right">
                 <p className="text-sm font-semibold text-neutral-800">

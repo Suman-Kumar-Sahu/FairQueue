@@ -2,7 +2,6 @@ import React from 'react';
 import { Clock } from 'lucide-react';
 
 const WaitTimeIndicator = ({ waitTime = 0 }) => {
-  // Determine color based on wait time
   const getColorClass = () => {
     if (waitTime < 15) return 'from-success-400 to-success-600';
     if (waitTime < 30) return 'from-yellow-400 to-orange-500';

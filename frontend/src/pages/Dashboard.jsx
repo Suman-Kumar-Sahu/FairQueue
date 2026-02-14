@@ -19,19 +19,16 @@ const Dashboard = () => {
     dispatch(getMyBookings());
   }, [dispatch]);
 
-  // Get active booking (checked-in or confirmed)
   const activeBooking = myBookings.find(
     (b) => b.status === 'checked-in' || b.status === 'confirmed'
   );
 
-  // Get upcoming bookings
   const upcomingBookings = myBookings
     .filter((b) => ['booked', 'confirmed'].includes(b.status))
     .slice(0, 3);
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Welcome Section */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-neutral-800">
@@ -53,7 +50,6 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      {/* Active Queue Position */}
       {activeBooking && (
         <QueuePosition
           position={7}
@@ -62,7 +58,6 @@ const Dashboard = () => {
         />
       )}
 
-      {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="bg-gradient-to-br from-primary-500 to-primary-600 text-white">
           <div className="flex items-start justify-between">
@@ -113,14 +108,12 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* Upcoming Appointments */}
       {isLoading ? (
         <SkeletonLoader type="card" count={2} />
       ) : (
         <UpcomingAppointments bookings={upcomingBookings} />
       )}
 
-      {/* Tips Section */}
       <Card className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
         <h3 className="font-bold text-neutral-800 mb-3 flex items-center gap-2">
           💡 Pro Tips

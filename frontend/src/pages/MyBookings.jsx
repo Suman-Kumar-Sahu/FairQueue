@@ -57,7 +57,6 @@ const MyBookings = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-neutral-800">
           My Bookings
@@ -76,7 +75,6 @@ const MyBookings = () => {
         </div>
       </div>
 
-      {/* Bookings List */}
       {filteredBookings.length === 0 ? (
         <Card className="text-center py-12">
           <Calendar size={48} className="mx-auto text-neutral-300 mb-4" />

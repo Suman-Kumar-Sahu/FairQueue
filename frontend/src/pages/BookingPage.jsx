@@ -40,12 +40,10 @@ const BookingPage = () => {
     (state) => state.booking
   );
 
-  /* -------------------- Load Centers -------------------- */
   useEffect(() => {
     dispatch(getCenters());
   }, [dispatch]);
 
-  /* -------------------- Select Center (URL priority) -------------------- */
   useEffect(() => {
     if (centers.length === 0 || selectedCenter) return;
 
@@ -60,7 +58,6 @@ const BookingPage = () => {
     dispatch(setSelectedCenter(centers[0]));
   }, [centers, centerFromUrl, selectedCenter, dispatch]);
 
-  /* -------------------- Init Date & Service -------------------- */
   useEffect(() => {
     if (!selectedDate) {
       dispatch(setSelectedDate(new Date().toISOString().split('T')[0]));
@@ -71,7 +68,6 @@ const BookingPage = () => {
     }
   }, [selectedDate, serviceFromUrl, dispatch]);
 
-  /* -------------------- Load Slots (FIXED step condition) -------------------- */
   useEffect(() => {
     if (selectedCenter && selectedDate && step === 1) {
       dispatch(
@@ -83,7 +79,6 @@ const BookingPage = () => {
     }
   }, [selectedCenter, selectedDate, step, dispatch]);
 
-  /* -------------------- Slot Selection -------------------- */
   const handleSlotSelect = async (slot) => {
     dispatch(setSelectedSlot(slot));
 
@@ -137,7 +132,6 @@ const BookingPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Step 1: Slots */}
       {step === 1 && (
         <>
           <Card>
@@ -176,7 +170,6 @@ const BookingPage = () => {
         </>
       )}
 
-      {/* Step 3: Confirmation */}
       {step === 3 && selectedSlot && (
         <Card>
           <Button
@@ -190,7 +183,6 @@ const BookingPage = () => {
         </Card>
       )}
 
-      {/* Step 4: Success */}
       {step === 4 && currentBooking && (
         <BookingConfirmation booking={currentBooking} onDone={handleDone} />
       )}

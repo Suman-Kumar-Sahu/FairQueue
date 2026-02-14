@@ -23,7 +23,6 @@ const Profile = () => {
         Profile
       </h1>
 
-      {/* User Info Card */}
       <Card className="mb-6">
         <div className="flex items-start gap-4 mb-6">
           <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-soft">
@@ -70,7 +69,6 @@ const Profile = () => {
         </div>
       </Card>
 
-      {/* Account Status */}
       <Card className="mb-6">
         <h3 className="font-bold text-neutral-800 mb-4 flex items-center gap-2">
           <Shield size={20} />
@@ -109,7 +107,6 @@ const Profile = () => {
         </div>
       </Card>
 
-      {/* Actions */}
       <div className="space-y-3">
         <Button
           variant="primary"

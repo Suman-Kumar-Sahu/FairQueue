@@ -49,7 +49,6 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // Validation
     if (!name || !email || !phone || !password) {
       toast.error('Please fill in all required fields');
       return;
@@ -89,7 +88,6 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-success-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Logo and Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl mb-4 shadow-soft-lg">
             <span className="text-white font-bold text-3xl">Q</span>
@@ -102,10 +100,8 @@ const Register = () => {
           </p>
         </div>
 
-        {/* Registration Card */}
         <Card>
           <form onSubmit={onSubmit} className="space-y-4">
-            {/* Name Input */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Full Name *
@@ -126,7 +122,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Email Input */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Email Address *
@@ -147,7 +142,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Phone Input */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Phone Number *
@@ -169,7 +163,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Aadhaar Number (Optional) */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Aadhaar Number (Optional)
@@ -190,7 +183,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Password Input */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Password *
@@ -211,7 +203,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Confirm Password Input */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Confirm Password *
@@ -232,7 +223,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
             <Button
               type="submit"
               variant="primary"
@@ -245,7 +235,6 @@ const Register = () => {
             </Button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-neutral-200"></div>
@@ -257,7 +246,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Sign In Link */}
           <Link to="/login">
             <Button variant="outline" size="lg" fullWidth>
               Sign In

@@ -9,7 +9,6 @@ const QueuePosition = ({ position = 0, totalInQueue = 0, estimatedWait = 0 }) =>
 
   return (
     <Card className="text-center">
-      {/* Position Display */}
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -27,7 +26,6 @@ const QueuePosition = ({ position = 0, totalInQueue = 0, estimatedWait = 0 }) =>
         </div>
       </motion.div>
 
-      {/* Progress Bar */}
       <ProgressBar 
         value={progress} 
         max={100}
@@ -37,7 +35,6 @@ const QueuePosition = ({ position = 0, totalInQueue = 0, estimatedWait = 0 }) =>
         className="mb-6"
       />
 
-      {/* Wait Time Info */}
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-neutral-50 rounded-2xl p-4">
           <div className="flex items-center justify-center gap-2 text-neutral-600 mb-1">
@@ -60,7 +57,6 @@ const QueuePosition = ({ position = 0, totalInQueue = 0, estimatedWait = 0 }) =>
         </div>
       </div>
 
-      {/* Status Message */}
       <div className="mt-6 p-4 bg-success-50 rounded-2xl border-2 border-success-200">
         <p className="text-success-700 font-semibold">
           {position <= 3 
