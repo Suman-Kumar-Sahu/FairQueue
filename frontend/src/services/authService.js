@@ -28,13 +28,11 @@ const getMe = async () => {
 const updateProfile = async (userData) => {
   const response = await api.put('/auth/updatedetails', userData);
   if (response.data.success) {
-    // Get existing user data
     const existingUser = JSON.parse(localStorage.getItem('user'));
-    // Merge with updated data
     const updatedUser = {
       ...existingUser,
       ...response.data.data,
-      token: existingUser.token // Preserve token
+      token: existingUser.token 
     };
     localStorage.setItem('user', JSON.stringify(updatedUser));
   }
@@ -44,7 +42,6 @@ const updateProfile = async (userData) => {
 const updatePassword = async (passwordData) => {
   const response = await api.put('/auth/updatepassword', passwordData);
   if (response.data.success && response.data.data?.token) {
-    // Update token in localStorage
     const existingUser = JSON.parse(localStorage.getItem('user'));
     const updatedUser = {
       ...existingUser,

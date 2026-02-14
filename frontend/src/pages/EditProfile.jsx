@@ -12,14 +12,12 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Profile form state
   const [profileData, setProfileData] = useState({
     name: user?.name || '',
     phone: user?.phone || '',
     aadhaarNumber: user?.aadhaarNumber || ''
   });
 
-  // Password form state
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -32,9 +30,8 @@ const EditProfile = () => {
     confirm: false
   });
 
-  const [activeTab, setActiveTab] = useState('profile'); // 'profile' or 'password'
+  const [activeTab, setActiveTab] = useState('profile'); 
 
-  // Handle profile input changes
   const handleProfileChange = (e) => {
     setProfileData({
       ...profileData,
@@ -42,7 +39,6 @@ const EditProfile = () => {
     });
   };
 
-  // Handle password input changes
   const handlePasswordChange = (e) => {
     setPasswordData({
       ...passwordData,
@@ -50,11 +46,9 @@ const EditProfile = () => {
     });
   };
 
-  // Submit profile update
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (!profileData.name.trim()) {
       toast.error('Name is required');
       return;
@@ -79,11 +73,9 @@ const EditProfile = () => {
     }
   };
 
-  // Submit password update
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (!passwordData.currentPassword) {
       toast.error('Current password is required');
       return;
@@ -112,14 +104,12 @@ const EditProfile = () => {
       
       toast.success('Password updated successfully');
       
-      // Clear form
       setPasswordData({
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
       });
       
-      // Switch back to profile tab
       setActiveTab('profile');
     } catch (error) {
       toast.error(error.message || 'Failed to update password');
@@ -128,7 +118,6 @@ const EditProfile = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-neutral-800">
           Edit Profile
@@ -138,7 +127,6 @@ const EditProfile = () => {
         </p>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-2 mb-6">
         <button
           onClick={() => setActiveTab('profile')}
@@ -162,11 +150,9 @@ const EditProfile = () => {
         </button>
       </div>
 
-      {/* Profile Form */}
       {activeTab === 'profile' && (
         <Card>
           <form onSubmit={handleProfileSubmit} className="space-y-5">
-            {/* Email (Read Only) */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Email Address
@@ -188,7 +174,6 @@ const EditProfile = () => {
               </p>
             </div>
 
-            {/* Name */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Full Name <span className="text-red-500">*</span>
@@ -210,7 +195,6 @@ const EditProfile = () => {
               </div>
             </div>
 
-            {/* Phone */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Phone Number <span className="text-red-500">*</span>
@@ -236,7 +220,6 @@ const EditProfile = () => {
               </p>
             </div>
 
-            {/* Aadhaar Number */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Aadhaar Number (Optional)
@@ -261,7 +244,6 @@ const EditProfile = () => {
               </p>
             </div>
 
-            {/* Buttons */}
             <div className="flex gap-3 pt-4">
               <Button
                 type="button"
@@ -286,11 +268,9 @@ const EditProfile = () => {
         </Card>
       )}
 
-      {/* Password Form */}
       {activeTab === 'password' && (
         <Card>
           <form onSubmit={handlePasswordSubmit} className="space-y-5">
-            {/* Current Password */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Current Password <span className="text-red-500">*</span>
@@ -318,7 +298,6 @@ const EditProfile = () => {
               </div>
             </div>
 
-            {/* New Password */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 New Password <span className="text-red-500">*</span>
@@ -349,7 +328,6 @@ const EditProfile = () => {
               </p>
             </div>
 
-            {/* Confirm Password */}
             <div>
               <label className="block text-sm font-semibold text-neutral-700 mb-2">
                 Confirm New Password <span className="text-red-500">*</span>
@@ -377,7 +355,6 @@ const EditProfile = () => {
               </div>
             </div>
 
-            {/* Password Match Indicator */}
             {passwordData.newPassword && passwordData.confirmPassword && (
               <div className={`p-3 rounded-xl text-sm ${
                 passwordData.newPassword === passwordData.confirmPassword
@@ -391,7 +368,6 @@ const EditProfile = () => {
               </div>
             )}
 
-            {/* Buttons */}
             <div className="flex gap-3 pt-4">
               <Button
                 type="button"

@@ -125,6 +125,9 @@ export const authSlice = createSlice({
       
       // Login
       .addCase(login.pending, (state) => {
+        state.isLoading = true; 
+      })
+      .addCase(login.fulfilled, (state, action) => { 
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.data;
@@ -147,7 +150,7 @@ export const authSlice = createSlice({
           ...state.user,
           ...action.payload.data
         };
-        // Update localStorage with fresh user data
+    
         localStorage.setItem('user', JSON.stringify({
           ...state.user,
           ...action.payload.data
