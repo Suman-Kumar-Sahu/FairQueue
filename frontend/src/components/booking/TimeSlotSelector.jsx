@@ -46,6 +46,25 @@ const TimeSlotSelector = ({
           const isFull = slot.status === 'full';
           const loadScore = slot.loadScore || (slot.currentLoad / slot.capacity);
 
+          // Check if slot time has passed or is within 1 hour from now
+          let isTimeDisabled = false;
+          if (slot.date && slot.startTime) {
+            try {
+              const slotDateOnly = new Date(slot.date).toISOString().split('T')[0];
+              const slotDateTimeStr = `${slotDateOnly}T${slot.startTime}:00`;
+              const slotDateTime = new Date(slotDateTimeStr);
+              
+              const now = new Date();
+              const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
+              
+              isTimeDisabled = slotDateTime <= oneHourFromNow;
+            } catch (e) {
+              console.error('Error parsing slot date/time:', e);
+            }
+          }
+
+          const isDisabled = isFull || isTimeDisabled;
+
           return (
             <motion.div
               key={slot._id}
@@ -54,13 +73,13 @@ const TimeSlotSelector = ({
               transition={{ delay: index * 0.05 }}
             >
               <button
-                onClick={() => !isFull && onSelect(slot)}
-                disabled={isFull}
+                onClick={() => !isDisabled && onSelect(slot)}
+                disabled={isDisabled}
                 className={`
                   w-full p-4 rounded-2xl border-2 transition-all duration-200
                   ${isSelected 
                     ? 'border-primary-500 bg-primary-50 shadow-soft' 
-                    : isFull
+                    : isDisabled
                     ? 'border-neutral-200 bg-neutral-100 opacity-50 cursor-not-allowed'
                     : 'border-neutral-200 bg-white hover:border-primary-300 hover:shadow-soft'
                   }
@@ -82,6 +101,8 @@ const TimeSlotSelector = ({
 
                 {isFull ? (
                   <Badge variant="danger" size="sm">Full</Badge>
+                ) : isTimeDisabled ? (
+                  <Badge variant="neutral" size="sm">Closed</Badge>
                 ) : (
                   <div className="flex items-center justify-center gap-1">
                     <div className={`w-2 h-2 rounded-full ${getLoadColor(loadScore)}`} />

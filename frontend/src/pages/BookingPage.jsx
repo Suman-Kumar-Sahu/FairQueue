@@ -18,6 +18,7 @@ import { createBooking, clearCurrentBooking } from '../redux/slices/bookingSlice
 import TimeSlotSelector from '../components/booking/TimeSlotSelector';
 import AlternativeSlots from '../components/booking/AlternativeSlots';
 import BookingConfirmation from '../components/booking/BookingConfirmation';
+import BookingSummary from '../components/booking/BookingSummary';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 
@@ -102,6 +103,7 @@ const BookingPage = () => {
   const handleDateChange = (days) => {
     const newDate = addDays(new Date(selectedDate), days);
     dispatch(setSelectedDate(newDate.toISOString().split('T')[0]));
+    dispatch(setSelectedSlot(null));
   };
 
   const handleConfirmBooking = async () => {
@@ -139,15 +141,20 @@ const BookingPage = () => {
               <button
                 onClick={() => handleDateChange(-1)}
                 disabled={selectedDate === new Date().toISOString().split('T')[0]}
+                className="p-2 rounded-xl hover:bg-neutral-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 <ArrowLeft />
               </button>
 
-              <p className="font-bold">
+              <p className="font-bold text-neutral-800">
                 {format(new Date(selectedDate), 'EEEE, MMMM dd, yyyy')}
               </p>
 
-              <button onClick={() => handleDateChange(1)}>
+              <button
+                onClick={() => handleDateChange(1)}
+                disabled={selectedDate >= addDays(new Date(), 6).toISOString().split('T')[0]}
+                className="p-2 rounded-xl hover:bg-neutral-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
                 <ArrowRight />
               </button>
             </div>
@@ -171,16 +178,14 @@ const BookingPage = () => {
       )}
 
       {step === 3 && selectedSlot && (
-        <Card>
-          <Button
-            fullWidth
-            loading={bookingLoading}
-            icon={<Check size={18} />}
-            onClick={handleConfirmBooking}
-          >
-            Confirm Booking
-          </Button>
-        </Card>
+        <BookingSummary
+          selectedCenter={selectedCenter}
+          selectedSlot={selectedSlot}
+          selectedService={selectedService}
+          bookingLoading={bookingLoading}
+          onConfirm={handleConfirmBooking}
+          onBack={() => setStep(1)}
+        />
       )}
 
       {step === 4 && currentBooking && (

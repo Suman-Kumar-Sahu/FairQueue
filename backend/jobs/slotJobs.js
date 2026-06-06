@@ -65,42 +65,8 @@ const initializeSlots = async () => {
   console.log('🚀 Initializing slots on server start...');
   
   try {
-    // Check if we have slots for today
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    const todaySlotCount = await Slot.countDocuments({
-      date: { $gte: today, $lt: tomorrow }
-    });
-    
-    console.log(`📊 Found ${todaySlotCount} slot(s) for today`);
-    
-    if (todaySlotCount === 0) {
-      console.log('⚠️  No slots for today! Generating now...');
-      await generateSlotsForAllCenters(7); // Generate for next 7 days
-    } else {
-      console.log('✅ Slots already exist for today');
-      
-      // Still generate for future days if needed
-      const sevenDaysFromNow = new Date(today);
-      sevenDaysFromNow.setDate(sevenDaysFromNow.getDate() + 7);
-      
-      const futureSlotCount = await Slot.countDocuments({
-        date: { $gte: today, $lt: sevenDaysFromNow }
-      });
-      
-      console.log(`📊 Total slots for next 7 days: ${futureSlotCount}`);
-      
-      // If we have fewer slots than expected, generate more
-      const centers = await ServiceCenter.find({ isActive: true });
-      if (futureSlotCount < centers.length * 10) { // Rough estimate
-        console.log('⚠️  Insufficient future slots, generating...');
-        await generateSlotsForAllCenters(7);
-      }
-    }
+    await generateSlotsForAllCenters(7);
+    console.log('✅ Slots initialized for the next 7 days.');
   } catch (error) {
     console.error('❌ Error initializing slots:', error);
   }

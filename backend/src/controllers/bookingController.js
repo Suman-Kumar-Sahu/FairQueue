@@ -49,19 +49,46 @@ export const createBooking = async (req, res, next) => {
       throw new ErrorResponse('You already have a booking for this slot', 400);
     }
 
-    const startOfDay = new Date(slot.date);
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date(slot.date);
-    endOfDay.setHours(23, 59, 59, 999);
-
-    const todayBookingsCount = await Booking.countDocuments({
+    // Find all bookings for this user with active or completed status
+    const userBookings = await Booking.find({
       user: userId,
-      createdAt: { $gte: startOfDay, $lte: endOfDay },
-      status: { $in: ['booked', 'confirmed', 'checked-in'] }
-    }).session(session);
+      status: { $in: ['booked', 'confirmed', 'checked-in', 'completed'] }
+    })
+      .populate('slot')
+      .session(session);
 
-    if (todayBookingsCount >= 2) {
-      throw new ErrorResponse('You can only book maximum 2 slots per day', 400);
+    // 1. Daily limit check: Only 1 booking per day
+    const slotDateStr = new Date(slot.date).toISOString().split('T')[0];
+    const sameDayBookings = userBookings.filter((b) => {
+      if (!b.slot) return false;
+      const bDateStr = new Date(b.slot.date).toISOString().split('T')[0];
+      return bDateStr === slotDateStr;
+    });
+
+    if (sameDayBookings.length >= 1) {
+      throw new ErrorResponse('You can only book one appointment per day', 400);
+    }
+
+    // 2. Weekly limit check: Maximum 4 bookings in the same week (Sunday-to-Saturday containing slot.date)
+    const slotDate = new Date(slot.date);
+    const dayOfWeek = slotDate.getDay(); // 0 is Sunday, 6 is Saturday
+    
+    const startOfWeek = new Date(slotDate);
+    startOfWeek.setDate(slotDate.getDate() - dayOfWeek);
+    startOfWeek.setHours(0, 0, 0, 0);
+    
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const weeklyBookings = userBookings.filter((b) => {
+      if (!b.slot) return false;
+      const bDate = new Date(b.slot.date);
+      return bDate >= startOfWeek && bDate <= endOfWeek;
+    });
+
+    if (weeklyBookings.length >= 4) {
+      throw new ErrorResponse('You can only book a maximum of 4 appointments per week', 400);
     }
 
     // Generate unique booking number
@@ -329,13 +356,55 @@ export const markNoShow = async (req, res, next) => {
 
     const user = await User.findById(booking.user).session(session);
     if (user) {
-      user.noShowCount += 1;
+      // Fetch all no-show bookings for this user to calculate yearly count dynamically
+      const userNoShowBookings = await Booking.find({
+        user: user._id,
+        status: 'no-show'
+      }).populate('slot').session(session);
 
-      if (user.noShowCount >= 3) {
+      const currentYear = new Date().getFullYear();
+      const startOfYear = new Date(Date.UTC(currentYear, 0, 1, 0, 0, 0, 0));
+      const endOfYear = new Date(Date.UTC(currentYear, 11, 31, 23, 59, 59, 999));
+
+      const yearlyNoShowCount = userNoShowBookings.filter(b => {
+        if (!b.slot) return false;
+        const bDate = new Date(b.slot.date);
+        return bDate >= startOfYear && bDate <= endOfYear;
+      }).length;
+
+      user.noShowCount = yearlyNoShowCount;
+
+      if (yearlyNoShowCount >= 4) {
         user.isPenalized = true;
+        // 30 days penalty suspension
         user.penaltyEndDate = new Date(
-          Date.now() + 7 * 24 * 60 * 60 * 1000
+          Date.now() + 30 * 24 * 60 * 60 * 1000
         );
+
+        // Cancel all future active bookings for this user to free up slots
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const futureBookings = await Booking.find({
+          user: user._id,
+          status: { $in: ['booked', 'confirmed', 'checked-in'] }
+        }).populate('slot').session(session);
+
+        for (const fBooking of futureBookings) {
+          if (fBooking.slot && new Date(fBooking.slot.date) >= today) {
+            fBooking.status = 'cancelled';
+            fBooking.cancellationReason = 'Automatic cancellation due to penalty suspension (4 no-shows in a year)';
+            await fBooking.save({ session });
+
+            // Decrement the slot load
+            const fSlot = await Slot.findById(fBooking.slot._id).session(session);
+            if (fSlot) {
+              fSlot.currentLoad = Math.max(0, fSlot.currentLoad - 1);
+              fSlot.updateStatus();
+              await fSlot.save({ session });
+            }
+          }
+        }
       }
 
       await user.save({ session });

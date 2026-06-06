@@ -36,7 +36,6 @@ const Centers = () => {
 
   const filteredCenters = centers.filter((center) => {
     if (!center.isActive) return false;
-L
     if (serviceFromUrl) {
       const hasService = center.type === serviceFromUrl;
       if (!hasService) return false;

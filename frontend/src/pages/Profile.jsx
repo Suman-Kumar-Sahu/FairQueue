@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { User, Mail, Phone, CreditCard, Shield, LogOut, AlertTriangle, Edit } from 'lucide-react';
-import { logout } from '../redux/slices/authSlice';
+import { logout, getMe } from '../redux/slices/authSlice';
 import Card from '../components/common/Card';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
@@ -11,6 +11,10 @@ const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout());
